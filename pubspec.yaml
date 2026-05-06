@@ -1,0 +1,26 @@
+name: adult_gemini
+description: "Sevak Shri Mehandipur Balaji App"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  flutter_inappwebview: ^6.0.0
+  # 🔥 पुराने battery_info को जड़ से उखाड़ दिया और इसे डाल दिया
+  battery_plus: ^5.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/database/panchang.db
