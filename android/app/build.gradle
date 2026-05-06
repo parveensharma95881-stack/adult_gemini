@@ -1,56 +1,31 @@
-def flutterRoot = System.getenv('FLUTTER_ROOT') ?: ""
-if (flutterRoot == "") {
-    def sdkPath = ""
-    def propertiesFile = new File(rootProject.projectDir, "local.properties")
-    if (propertiesFile.exists()) {
-        propertiesFile.withReader('UTF-8') { reader ->
-            def properties = new Properties()
-            properties.load(reader)
-            sdkPath = properties.getProperty('flutter.sdk')
-        }
-    }
-    flutterRoot = sdkPath
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
-android {
-    namespace "com.example.adult_gemini"
-    compileSdkVersion 34
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+buildscript {
+    ext.kotlin_version = '1.9.22'
+    repositories {
+        google()
+        mavenCentral()
     }
 
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-
-    defaultConfig {
-        applicationId "com.example.adult_gemini"
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            // R8 और BackEvent वाले एरर को रोकने के लिए
-            minifyEnabled false
-            shrinkResources false
-            signingConfig signingConfigs.debug
-        }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1' 
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-flutter {
-    source flutterRoot
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
