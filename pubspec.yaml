@@ -20,7 +20,7 @@ dependencies:
   collection: ^1.19.1
   meta: ^1.18.2
   path: ^1.9.1
-  vector_math: ^2.3.0
+  vector_math: ^2.2.0
   xml: ^7.0.1
   args: ^2.7.0
   characters: ^1.4.1
@@ -39,6 +39,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
   
   # टेस्टिंग और लिंट्स के लेटेस्ट वर्जन
   flutter_lints: ^6.0.0
