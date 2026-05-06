@@ -26,7 +26,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           # यहाँ वर्जन 3.24.0 किया है ताकि Dart 3.7.0 मिले और 'test_api' वाला एरर खत्म हो
-          flutter-version: '3.27.0'
+          flutter-version: '4.0.0'
           cache: true
 
       - name: Build APK
