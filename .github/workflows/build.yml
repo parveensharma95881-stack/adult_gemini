@@ -27,7 +27,7 @@ jobs:
         with:
           # यहाँ वर्जन 3.24.0 किया है ताकि Dart 3.7.0 मिले और 'test_api' वाला एरर खत्म हो
           flutter-version: '3.35.0'
-          channel:'stable'
+          channel: 'stable'
           cache: true
 
       - name: Build APK
