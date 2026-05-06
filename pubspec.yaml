@@ -10,23 +10,25 @@ dependencies:
   flutter:
     sdk: flutter
   
-  # कोटलिन प्रोजेक्ट के लिए ये वर्जन सबसे स्थिर (Stable) हैं
-  meta: 1.12.0
-  vector_math: 2.1.4
+  # ये वो सामान हैं जो कोड में तो थे पर यहाँ गायब थे
+  flutter_tts: ^4.2.2          # बोलकर सुनाने के लिए
+  battery_info: ^3.0.2         # बैटरी की जानकारी के लिए
+  intl: ^0.19.0                # तारीख और समय (DateFormat) के लिए
+  
   cupertino_icons: ^1.0.8
+  vector_math: 2.1.4
   battery_plus: ^7.0.0
   flutter_inappwebview: ^6.0.0
-  async: ^2.11.0
-  clock: ^1.1.1
-  collection: ^1.18.0
-  path: ^1.9.0
+  async: 2.11.0
+  clock: 1.1.1
+  collection: 1.18.0
+  path: 1.9.0
+  meta: 1.12.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
-  # इसे 0.7.10 पर ही रखना ताकि कोटलिन बिल्ड न रुके
-  test_api: 0.7.0
+  test_api: 0.7.3
   flutter_lints: ^3.0.0
 
 flutter:
