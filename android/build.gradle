@@ -1,12 +1,13 @@
 buildscript {
+    ext.kotlin_version = '1.9.10' // इसे 1.9.10 कर दे
     repositories {
         google()
         mavenCentral()
     }
+
     dependencies {
-        // यह लाइन 'com.android.application' को ढूंढने में मदद करेगी
-        classpath 'com.android.tools.build:gradle:8.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22"
+        classpath 'com.android.tools.build:gradle:8.1.0' // इसे भी चेक कर ले
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -19,7 +20,7 @@ allprojects {
 
 // इसके नीचे कुछ नहीं होना चाहिए! सारा android { } वाला कोड अंदर वाली फाइल में रहेगा।
 rootProject.buildDir = '../build'
-subprojects {
+subprojects
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
