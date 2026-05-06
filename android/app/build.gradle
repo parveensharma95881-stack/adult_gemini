@@ -3,7 +3,6 @@ plugins {
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
-// यहाँ से वर्जन नंबर हटा दिए हैं, अब ये सिर्फ ऊपर वाले हुक्म को मानेगा
 
 android {
     namespace "com.example.adult_gemini"
@@ -40,5 +39,6 @@ android {
 }
 
 dependencies {
+    // ये लाइन कोटलिन को Flutter पहचानना सिखाएगी
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 }
