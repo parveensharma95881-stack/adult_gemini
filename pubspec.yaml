@@ -12,7 +12,7 @@ dependencies:
   
   # कोटलिन प्रोजेक्ट के लिए ये वर्जन सबसे स्थिर (Stable) हैं
   meta: 1.17.0
-  vector_math: 2.2.0
+  vector_math: any
   cupertino_icons: ^1.0.9
   battery_plus: ^7.0.0
   flutter_inappwebview: ^6.0.0
