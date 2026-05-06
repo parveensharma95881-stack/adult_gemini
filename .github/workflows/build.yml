@@ -1,40 +1,45 @@
-name: Build APK
+name: Build Flutter APK
+
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Set up Java
+      - uses: actions/checkout@v4
+
+      # जावा 17 सेट करना कतई ज़रूरी है क्योंकि कोटलिन इसे ही मांगती है
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
           java-version: '17'
-          cache: 'gradle'
+          distribution: 'temurin'
+          cache: gradle
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.22.0' # स्टेबल वर्ज़न
           channel: 'stable'
           cache: true
 
+      - name: Install dependencies
+        run: flutter pub get
+
+      # अगर कोटलिन में कोई छोटी-मोटी गड़बड़ है तो ये उसे साफ़ कर देगा
+      - name: Flutter Clean
+        run: flutter clean
+
       - name: Build APK
-        run: |
-          flutter clean
-          flutter pub get
-          flutter build apk --release --target-platform android-arm64 --no-shrink
+        run: flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Balaji-App-Kotlin-Final
+          name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
