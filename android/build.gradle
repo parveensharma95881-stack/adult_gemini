@@ -1,11 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.9.22'
+    ext.kotlin_version = '1.9.22' // यह कतई स्थिर वर्ज़न है
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
+        // कोटलिन 1.9.22 के साथ Gradle 8.2.1 का जोड़ा बेस्ट है
         classpath 'com.android.tools.build:gradle:8.2.1' 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
