@@ -4,7 +4,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-# 🚀 यहाँ से चेतावनी खत्म होगी
+# 🚀 Node 20 की चेतावनी को जड़ से खत्म करने के लिए
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # लेटेस्ट वर्जन
+        uses: actions/checkout@v4
       
       - name: Set up Java
-        uses: actions/setup-java@v4 # लेटेस्ट वर्जन
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -25,18 +25,18 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
+          # यहाँ वर्जन 3.24.0 किया है ताकि Dart 3.5.0 मिले और 'test_api' वाला एरर खत्म हो
+          flutter-version: '3.24.0'
           cache: true
 
       - name: Build APK
         run: |
           flutter clean
           flutter pub get
-          # बिना श्रिंकिंग के बिल्ड ताकि R8 एरर न आए
           flutter build apk --release --target-platform android-arm64 --no-shrink
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Balaji-App-Final-No-Warnings
+          name: Balaji-App-Final-No-Errors
           path: build/app/outputs/flutter-apk/app-release.apk
