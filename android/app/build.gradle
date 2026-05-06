@@ -1,6 +1,6 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
+    id "org.jetbrains.kotlin.android"  // ये कतई सही रास्ता है
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -17,8 +17,9 @@ android {
         jvmTarget = '17'
     }
 
-    sourceSets {
+        sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += 'src/main/java' // ये भी जोड़ दे ताकि कोई गुंजाइश न रहे
     }
 
     defaultConfig {
