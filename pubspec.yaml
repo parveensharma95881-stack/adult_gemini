@@ -10,8 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # --- यहाँ से सभी अपडेटेड और मिक्स पैकेजेस हैं ---
   cupertino_icons: ^1.0.9
   battery_plus: ^7.0.0
   flutter_inappwebview: ^6.1.5
