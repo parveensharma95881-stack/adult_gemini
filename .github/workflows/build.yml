@@ -1,10 +1,10 @@
-- name: Reset Packages
-  run: |
-    rm -f pubspec.lock
-    flutter clean
-    flutter pub get
+name: Build APK
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
-# 🚀 Node 20 की चेतावनी को जड़ से खत्म करने के लिए
+# 🚀 Node 20 वाली पीली चेतावनी को कुचलने के लिए
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -25,8 +25,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          # यहाँ वर्जन 3.24.0 किया है ताकि Dart 3.7.0 मिले और 'test_api' वाला एरर खत्म हो
-          flutter-version: '3.35.3'
+          # यहाँ 'stable' रखने से तुझे Dart 3.10.x के आस-पास का वर्ज़न मिल जाएगा
           channel: 'stable'
           cache: true
 
@@ -39,5 +38,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Balaji-App-Final-No-Errors
+          name: Balaji-App-Final-Success
           path: build/app/outputs/flutter-apk/app-release.apk
