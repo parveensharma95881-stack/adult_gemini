@@ -4,7 +4,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-# 🚀 Node 20 वाली पीली चेतावनी को कुचलने के लिए
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -25,7 +24,6 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          # यहाँ 'stable' रखने से तुझे Dart 3.10.x के आस-पास का वर्ज़न मिल जाएगा
           channel: 'stable'
           cache: true
 
@@ -38,5 +36,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Balaji-App-Final-Success
+          name: Balaji-App-Kotlin-Final
           path: build/app/outputs/flutter-apk/app-release.apk
