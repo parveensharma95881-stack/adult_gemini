@@ -1,4 +1,3 @@
-// 1. सबसे पहले flutterRoot को डिफाइन करना ज़रूरी है
 def flutterRoot = System.getenv('FLUTTER_ROOT') ?: ""
 if (flutterRoot == "") {
     def sdkPath = ""
@@ -15,12 +14,20 @@ if (flutterRoot == "") {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// अब यहाँ flutterRoot सही से काम करेगा
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.example.adult_gemini"
     compileSdkVersion 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 
     defaultConfig {
         applicationId "com.example.adult_gemini"
@@ -32,6 +39,7 @@ android {
 
     buildTypes {
         release {
+            // R8 और BackEvent वाले एरर को रोकने के लिए
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.debug
