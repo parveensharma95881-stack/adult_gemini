@@ -1,12 +1,13 @@
 buildscript {
-    ext.kotlin_version = '1.9.22' // इसे बढ़ाकर 1.9.22 कर दिया है
+    // कोटलिन का ये वर्जन Java 17 के साथ कतई मक्खन चलेगा
+    ext.kotlin_version = '1.9.22'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        // Gradle का वर्ज़न 8.2.1 ताकि परमिशन वाला एरर खत्म हो
+        // ग्रेडल का वर्ज़न 8.2.1 ताकि परमिशन वाले एरर न आएं
         classpath 'com.android.tools.build:gradle:8.2.1' 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
