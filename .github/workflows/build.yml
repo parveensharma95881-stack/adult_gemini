@@ -1,8 +1,8 @@
-name: Build APK
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+- name: Reset Packages
+  run: |
+    rm -f pubspec.lock
+    flutter clean
+    flutter pub get
 
 # 🚀 Node 20 की चेतावनी को जड़ से खत्म करने के लिए
 env:
