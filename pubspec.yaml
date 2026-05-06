@@ -15,28 +15,9 @@ dependencies:
   cupertino_icons: ^1.0.9
   battery_plus: ^7.0.0
   flutter_inappwebview: ^6.1.5
-  async: ^2.13.1
   clock: ^1.1.2
-  collection: ^1.19.1
-  meta: ^1.17.0
-  path: ^1.9.1
-  vector_math: ^2.2.0
-  xml: ^7.0.1
-  args: ^2.7.0
-  characters: ^1.4.1
-  ffi: ^2.2.0
-  js: ^0.7.2
-  matcher: ^0.12.20
-  material_color_utilities: ^0.13.0
-  petitparser: ^7.0.2
-  source_span: ^1.10.2
-  stack_trace: ^1.12.1
-  stream_channel: ^2.1.4
-  string_scanner: ^1.4.1
-  term_glyph: ^1.2.2
-  vm_service: ^15.2.0
-
-dev_dependencies:
+  
+  dev_dependencies:
   flutter_test:
     sdk: flutter
     
