@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   
   # कोटलिन प्रोजेक्ट के लिए ये वर्जन सबसे स्थिर (Stable) हैं
-  meta: 1.17.0
+  meta: 1.12.0
   vector_math: 2.1.4
   cupertino_icons: ^1.0.9
   battery_plus: ^7.0.0
