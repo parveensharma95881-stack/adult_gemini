@@ -5,7 +5,7 @@ pluginManagement {
         if (file.exists()) {
             file.withReader('UTF-8') { reader -> properties.load(reader) }
         }
-        return properties.getProperty('flutter.sdk')
+        return properties.getProperty('flutter.sdk') ?: System.getenv('FLUTTER_ROOT')
     }()
 
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
