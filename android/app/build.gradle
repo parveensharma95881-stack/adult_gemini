@@ -40,9 +40,5 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
-    
-    // ये ३ लाइनें कोटलिन की आँखों की रोशनी लौटाएंगी
-    implementation "io.flutter:flutter_embedding_release:1.0.0-+" 
-    implementation "androidx.annotation:annotation:1.7.1"
-    implementation "androidx.appcompat:appcompat:1.6.1"
+    // बाकी जो हमने मैन्युअली डाला था (io.flutter वाली लाइन), उसे हटा दे
 }
