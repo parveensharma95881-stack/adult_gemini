@@ -1,8 +1,9 @@
 plugins {
-    id "com.android.application" version "8.2.1"
-    id "kotlin-android" version "1.9.22"
+    id "com.android.application"
+    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
+// यहाँ से वर्जन नंबर हटा दिए हैं, अब ये सिर्फ ऊपर वाले हुक्म को मानेगा
 
 android {
     namespace "com.example.adult_gemini"
