@@ -1,5 +1,21 @@
+// 1. सबसे पहले flutterRoot को डिफाइन करना ज़रूरी है
+def flutterRoot = System.getenv('FLUTTER_ROOT') ?: ""
+if (flutterRoot == "") {
+    def sdkPath = ""
+    def propertiesFile = new File(rootProject.projectDir, "local.properties")
+    if (propertiesFile.exists()) {
+        propertiesFile.withReader('UTF-8') { reader ->
+            def properties = new Properties()
+            properties.load(reader)
+            sdkPath = properties.getProperty('flutter.sdk')
+        }
+    }
+    flutterRoot = sdkPath
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+// अब यहाँ flutterRoot सही से काम करेगा
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -16,10 +32,8 @@ android {
 
     buildTypes {
         release {
-            // ये दो लाइनें कतई ज़रूरी हैं ताकि 'BackEvent' वाला एरर न आए
             minifyEnabled false
             shrinkResources false
-            
             signingConfig signingConfigs.debug
         }
     }
