@@ -33,7 +33,7 @@ jobs:
 
       # अगर कोटलिन में कोई छोटी-मोटी गड़बड़ है तो ये उसे साफ़ कर देगा
       - name: Flutter Clean
-        run: flutter clean
+        run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
