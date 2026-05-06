@@ -25,13 +25,7 @@ dependencies:
   # टेस्टिंग और लिंट्स के लेटेस्ट वर्जन
   flutter_lints: ^6.0.0
   lints: ^6.1.0
-  test_api: ^0.7.10
-  fake_async: ^1.3.3
-  boolean_selector: ^2.1.2
-  leak_tracker: ^11.0.2
-  leak_tracker_flutter_testing: ^3.0.10
-  leak_tracker_testing: ^3.0.2
-
+  
 flutter:
   uses-material-design: true
   # तेरा पंचांग डेटाबेस यहाँ सुरक्षित है
