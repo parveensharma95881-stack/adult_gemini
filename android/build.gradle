@@ -1,12 +1,13 @@
 buildscript {
-    ext.kotlin_version = '1.9.10' // इसे 1.9.10 कर दे
+    ext.kotlin_version = '1.9.22' // इसे बढ़ाकर 1.9.22 कर दिया है
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0' // इसे भी चेक कर ले
+        // Gradle का वर्ज़न 8.2.1 ताकि परमिशन वाला एरर खत्म हो
+        classpath 'com.android.tools.build:gradle:8.2.1' 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -18,9 +19,8 @@ allprojects {
     }
 }
 
-// इसके नीचे कुछ नहीं होना चाहिए! सारा android { } वाला कोड अंदर वाली फाइल में रहेगा।
 rootProject.buildDir = '../build'
-subprojects
+subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
