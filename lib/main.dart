@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:battery_plus/battery_plus.dart';
-import 'package:intl/date_symbol_data_local.dart'; // 🔥 हिंदी डेट के लिए जरूरी
+import 'package:intl/date_symbol_data_local.dart'; // 🔥 हिंदी डेट सपोर्ट
 import 'assistant_logic.dart';
-
 // ग्लोबल ऑब्जेक्ट ताकि पूरी ऐप में कहीं भी इस्तेमाल हो सके
+
 final AssistantLogic assistant = AssistantLogic();
 
 void main() async {
