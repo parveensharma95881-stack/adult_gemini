@@ -17,7 +17,7 @@ dependencies:
   
   cupertino_icons: ^1.0.8
   vector_math: 2.1.4
-  battery_plus: ^7.0.0
+  battery_plus: ^5.0.3
   flutter_inappwebview: ^6.0.0
   async: 2.11.0
   clock: 1.1.1
