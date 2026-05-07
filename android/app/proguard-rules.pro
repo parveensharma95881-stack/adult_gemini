@@ -1,2 +1,3 @@
 -keep class android.window.BackEvent { *; }
 -dontwarn android.window.BackEvent
+-keep class com.pichillilorenzo.flutter_inappwebview.** { *; }
