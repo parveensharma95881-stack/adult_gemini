@@ -1,0 +1,2 @@
+-keep class android.window.BackEvent { *; }
+-dontwarn android.window.BackEvent
