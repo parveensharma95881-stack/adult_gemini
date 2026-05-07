@@ -1,14 +1,12 @@
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader) }
 }
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    throw new GradleException("Flutter SDK not found.")
 }
 
 apply plugin: 'com.android.application'
@@ -39,7 +37,6 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
-            // R8 एरर रोकने के लिए ये दोनों false होने जरूरी हैं
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -48,5 +45,7 @@ android {
 }
 
 dependencies {
+    // इसे यहाँ अपडेट किया गया है
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.22')
 }
