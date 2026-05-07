@@ -1,3 +1,8 @@
+-ignorewarnings
+-keep class android.window.** { *; }
+-dontwarn android.window.**
+-keep class ** { *; }
+-dontwarn **
 -dontminify
 -dontshrink
 -dontoptimize
