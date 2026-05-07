@@ -27,6 +27,16 @@ jobs:
           flutter-version: '3.22.0' # स्टेबल वर्ज़न
           channel: 'stable'
           cache: true
+        
+         - name: Clear and Repair Pub Cache
+        run: |
+          flutter clean
+          rm -rf pubspec.lock
+          rm -rf ~/.pub-cache
+          flutter pub cache repair
+
+      - name: Install dependencies
+        run: flutter pub get
 
       - name: Install dependencies
         run: flutter pub get
