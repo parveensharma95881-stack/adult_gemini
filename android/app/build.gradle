@@ -36,19 +36,19 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
+        buildTypes {
         release {
             signingConfig signingConfigs.debug
             
-            // R8 का काम तमाम: यहाँ सब false कर दिया है
+            // R8 को पूरी तरह कुचलने के लिए ये सेटिंग्स:
             minifyEnabled false
             shrinkResources false
-            zipAlignEnabled false
+            zipAlignEnabled true
             
+            // यहाँ ध्यान दें: 'optimize' वाला वर्जन इस्तेमाल न करें
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
