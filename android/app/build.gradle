@@ -25,9 +25,12 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
+    
+       buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug // या आपका की-स्टोर
+            minifyEnabled false   // 👈 इसे false कर दें
+            shrinkResources false // 👈 इसे भी false कर दें
         }
     }
 
