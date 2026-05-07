@@ -1,5 +1,4 @@
 -keep class android.window.BackEvent { *; }
 -dontwarn android.window.BackEvent
--keep class com.pichillilorenzo.flutter_inappwebview.** { *; }
--keep class io.flutter.embedding.android.** { *; }
--dontwarn io.flutter.embedding.android.FlutterActivity
+-keep class io.flutter.embedding.android.FlutterActivity { *; }
+ 
