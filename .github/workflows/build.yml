@@ -10,23 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
-
-      # जावा 17 सेट करना कतई ज़रूरी है क्योंकि कोटलिन इसे ही मांगती है
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        steps:
+      - uses: actions/checkout@v4 # वर्जन 4 इस्तेमाल करें
+      - uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0' # स्टेबल वर्ज़न
+          flutter-version: '3.22.0' # या जो आप इस्तेमाल कर रहे हैं
           channel: 'stable'
-          cache: true
+
         
 
       - name: Install dependencies
