@@ -1,12 +1,14 @@
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader) }
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
 }
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found.")
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 apply plugin: 'com.android.application'
@@ -33,20 +35,18 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.debug
-            
-            // इन दोनों को false कर दें
+            // R8 और BackEvent एरर को रोकने के लिए इन्हें false ही रखें
             minifyEnabled false
             shrinkResources false
-            
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    // यह लाइन 'io.flutter' एरर को जड़ से खत्म करेगी
-    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
 }
