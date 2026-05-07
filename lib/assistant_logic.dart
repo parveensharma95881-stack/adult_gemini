@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:battery_plus/battery_plus.dart';
-import 'package:android_battery_info/android_battery_info.dart'; // नया इंपोर्ट
+import 'package:battery_info/battery_info_plugin.dart'; // इसे ध्यान से देखें
+import 'package:battery_info/model/android_battery_info.dart';
 import 'package:intl/intl.dart';
 
 class AssistantLogic {
