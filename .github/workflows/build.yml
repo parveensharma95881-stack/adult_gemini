@@ -46,5 +46,4 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-          
-flutter clean && rm -rf android/.gradle && flutter pub get && flutter build apk --release --no-tree-shake-icons
+      
