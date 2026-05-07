@@ -101,7 +101,7 @@ class _SevakHomeState extends State<SevakHome> {
       // एक बटन राम अलार्म टेस्ट करने के लिए (ऑप्शनल)
       floatingActionButton: FloatingActionButton(
         onPressed: () => assistant.playRamAlarm(),
-        child: Icon(Icons.Record_voice_over),
+        child: Icon(Icons.record_voice_over),
         backgroundColor: Colors.orange[900],
       ),
     );
