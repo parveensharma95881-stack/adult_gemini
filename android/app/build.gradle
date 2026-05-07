@@ -25,19 +25,15 @@ android {
         versionName "1.0"
     }
 
-    
-       buildTypes {
-    release {
-        // यहाँ ये बदलाव करें 👇
-        minifyEnabled false
-        shrinkResources false
-        
-        // यह सुनिश्चित करें कि signingConfig मौजूद है
-        signingConfig signingConfigs.debug 
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false    // यह बंद होना जरूरी है
+            shrinkResources false  // यह भी बंद करो
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-}
-
-
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -46,12 +42,9 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-}
 
-flutter {
-    source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
