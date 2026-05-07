@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:battery_plus/battery_plus.dart';
-import 'package:pinf_battery_info/pinf_battery_info.dart'; // सही इंपोर्ट
+import 'package:android_battery_info/android_battery_info.dart'; // नया इंपोर्ट
 import 'package:intl/intl.dart';
 
 class AssistantLogic {
@@ -18,8 +18,9 @@ class AssistantLogic {
     _battery.onBatteryStateChanged.listen((state) async {
       int lvl = await _battery.batteryLevel;
       
-      // वोल्टेज निकालने का नया तरीका
-      var info = await PinfBatteryInfo().androidBatteryInfo;
+      // वोल्टेज निकालने का सही तरीका
+      var info = await AndroidBatteryInfo().getAndroidBatteryInfo();
+      // वोल्टेज को millivolts से Volts में बदलना
       double volt = (info?.voltage ?? 0) / 1000.0;
 
       if (state == BatteryState.charging) {
@@ -27,11 +28,11 @@ class AssistantLogic {
       }
       
       if (lvl == 100 && state == BatteryState.charging) {
-        tts.speak("जय श्री राम विवेक जी, बालाजी की दया से बैटरी फुल हो गई है, चार्जर हटा लें।");
+        tts.speak("जय श्री राम विवेक जी, बालाजी महाराज की दया से फोन फुल चार्ज हो गया है।");
       }
     });
 
-    // 2. 🔋 हर 1% बदलाव पर बैटरी अपडेट (हर 30 सेकंड में चेक)
+    // 2. 🔋 हर 1% बदलाव पर बैटरी अपडेट (30 सेकंड का चेक)
     Timer.periodic(Duration(seconds: 30), (t) async {
       int current = await _battery.batteryLevel;
       if (current != _lastLvl && current > 0) {
@@ -40,7 +41,7 @@ class AssistantLogic {
       }
     });
 
-    // 3. 🕒 हर 5 मिनट में पंचांग और त्यौहार
+    // 3. 🕒 हर 5 मिनट में पंचांग, त्यौहार और शुभकामनाएँ
     Timer.periodic(Duration(minutes: 5), (t) => announceDharmikData());
   }
 
@@ -67,13 +68,13 @@ class AssistantLogic {
 
     String warSpecial = "";
     if (now.weekday == DateTime.tuesday) warSpecial = "आज मंगलवार है, हनुमान जी का वार है।";
-    if (now.weekday == DateTime.saturday) warSpecial = "आज शनिवार है, बालाजी महाराज का विशेष दिन है।";
+    if (now.weekday == DateTime.saturday) warSpecial = "आज शनिवार है, संकटमोचन बालाजी महाराज का विशेष दिन है।";
 
     String speech = """
     जय श्री राम विवेक कौशिक जी। अभी समय $time हुआ है। 
     आज $day है और तारीख $date है। विक्रम सम्वत $samvat चल रहा है। 
     $holidayStatus $warSpecial 
-    बालाजी महाराज की दया बनी रहे, सब स्वस्थ रहे और खुश रहे। जय बाबा की।
+    बालाजी महाराज की दया दृष्टि सब पर बनी रहे, सब स्वस्थ रहे और खुश रहे। जय बाबा की।
     """;
 
     await tts.speak(speech);
