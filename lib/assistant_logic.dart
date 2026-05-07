@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:battery_plus/battery_plus.dart';
-import 'package:battery_level_plus/battery_level_plus.dart'; // नया इंपोर्ट
 import 'package:intl/intl.dart';
 
 class AssistantLogic {
