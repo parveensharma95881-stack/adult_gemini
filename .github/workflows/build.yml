@@ -1,4 +1,4 @@
-name: Build Flutter APK
+name: Build Balaji APK
 
 on:
   push:
@@ -10,38 +10,37 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-        steps:
-      - uses: actions/checkout@v4 # वर्जन 4 इस्तेमाल करें
-      - uses: actions/setup-java@v3
+    steps:
+      # GitHub Actions के लेटेस्ट वर्जन (Node 20 सपोर्टेड)
+      - uses: actions/checkout@v4 
+      
+      - name: Set up Java
+        uses: actions/setup-java@v4 # v4 इस्तेमाल करें (Node 20 के लिए बेहतर)
         with:
           java-version: '17'
           distribution: 'temurin'
-      - uses: subosito/flutter-action@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0' # या जो आप इस्तेमाल कर रहे हैं
+          flutter-version: '3.22.0'
           channel: 'stable'
 
-        
+      # पुरानी फाइलों का लफड़ा खत्म करने के लिए सफाई
+      - name: Clean Project
+        run: |
+          flutter clean
+          rm -rf pubspec.lock
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      # अगर कोटलिन में कोई छोटी-मोटी गड़बड़ है तो ये उसे साफ़ कर देगा
-      - name: Clear Pub Cache
-        run: flutter pub cache clean
-
-      - name: Force Pub Get
-        run: flutter pub get
-
-      - name: Build APK
-        run: flutter build apk --release
+      # यहाँ हमने वो ब्रह्मास्त्र लगाया है जो R8 के एरर को बाईपास करेगा
+      - name: Build APK (R8 Bypass Mode)
+        run: flutter build apk --release --no-tree-shake-icons --no-minify
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk
+          name: balaji-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-      
