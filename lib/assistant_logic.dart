@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:pinf_battery_info/pinf_battery_info.dart'; // नया इंपोर्ट
+import 'package:pinf_battery_info/models/android_battery_info.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:intl/intl.dart';
 
