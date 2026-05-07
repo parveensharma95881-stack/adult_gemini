@@ -14,7 +14,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.example.adult_gemini"
+    namespace "com.example.balaji"
     compileSdkVersion 34
 
     compileOptions {
@@ -27,7 +27,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.adult_gemini"
+        applicationId "com.example.balaji"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
