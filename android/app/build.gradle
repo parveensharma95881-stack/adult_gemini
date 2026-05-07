@@ -1,12 +1,26 @@
 plugins {
     id "com.android.application"
-    id "org.jetbrains.kotlin.android"  // ये कतई सही रास्ता है
+    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
 android {
     namespace "com.example.adult_gemini"
-    compileSdkVersion 34
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.adult_gemini"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -14,32 +28,10 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '17'
-    }
-
-        sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        main.java.srcDirs += 'src/main/java' // ये भी जोड़ दे ताकि कोई गुंजाइश न रहे
-    }
-
-    defaultConfig {
-        applicationId "com.example.adult_gemini"
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            shrinkResources false
-            signingConfig signingConfigs.debug
-        }
+        jvmTarget = "17"
     }
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
-    // बाकी जो हमने मैन्युअली डाला था (io.flutter वाली लाइन), उसे हटा दे
+flutter {
+    source "../.."
 }
