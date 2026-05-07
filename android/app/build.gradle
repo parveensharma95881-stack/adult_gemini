@@ -36,18 +36,19 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
+        buildTypes {
         release {
             signingConfig signingConfigs.debug
             
-            // R8 एरर रोकने के लिए
+            // R8 और साइज कम करने वाले सारे सिस्टम यहाँ बंद कर दिए हैं
             minifyEnabled false
             shrinkResources false
+            zipAlignEnabled false
             
+            // ये लाइन सुनिश्चित करेगी कि R8 बीच में टांग न अड़ाए
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
