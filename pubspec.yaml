@@ -12,7 +12,6 @@ dependencies:
   
   # ये वो सामान हैं जो कोड में तो थे पर यहाँ गायब थे
   flutter_tts: ^4.0.2          # बोलकर सुनाने के लिए
-  battery_level_plus: ^3.6.2       # बैटरी की जानकारी के लिए
   battery_plus: ^5.0.3
   intl: ^0.19.0                # तारीख और समय (DateFormat) के लिए
   cupertino_icons: ^1.0.8
