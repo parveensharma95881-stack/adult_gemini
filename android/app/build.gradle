@@ -14,14 +14,12 @@ if (flutterRoot == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
 android {
     namespace "com.example.balaji"
     compileSdkVersion 34
 
-                        
-                        } 
-                        
-        compileOptions {
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -38,19 +36,19 @@ android {
         versionName "1.0"
     }
 
-        buildTypes {
+    buildTypes {
         release {
             signingConfig signingConfigs.debug
             
-            // R8 को पूरी तरह कुचलने के लिए ये सेटिंग्स:
+            // R8 को यहाँ हमने पूरी तरह सुला दिया है
             minifyEnabled false
             shrinkResources false
-            zipAlignEnabled true
-            
-            // यहाँ ध्यान दें: 'optimize' वाला वर्जन इस्तेमाल न करें
+            zipAlignEnabled true 
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
