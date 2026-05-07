@@ -36,16 +36,15 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
+        buildTypes {
         release {
             signingConfig signingConfigs.debug
-            // R8 और BackEvent एरर को रोकने के लिए इन्हें false ही रखें
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
