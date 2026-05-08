@@ -10,12 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
-  # पुराने वर्ज़न जो बिल्ड में दिक्कत नहीं करेंगे
   battery_plus: ^4.0.0  
   flutter_tts: ^3.8.3
   flutter_inappwebview: ^5.8.0
   intl: ^0.18.1
+  sqflite: ^2.3.0    # यह गायब था
+  path: ^1.8.3       # यह भी गायब था
 
 dev_dependencies:
   flutter_test:
