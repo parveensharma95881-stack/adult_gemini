@@ -8,26 +8,14 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found.")
+    flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
-    namespace "com.example.balaji"
     compileSdkVersion 34
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-
+    
     defaultConfig {
         applicationId "com.example.balaji"
         minSdkVersion 21
@@ -39,17 +27,8 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
-            
-            // R8 को यहाँ हमने पूरी तरह सुला दिया है
             minifyEnabled false
             shrinkResources false
-            zipAlignEnabled true 
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
