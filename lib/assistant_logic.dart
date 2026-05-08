@@ -1,55 +1,61 @@
-import 'dart:async';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:intl/intl.dart';
 
-class AssistantLogic {
-  final FlutterTts tts = FlutterTts();
+class BalajiAssistant {
+  final FlutterTts flutterTts = FlutterTts();
   final Battery _battery = Battery();
-  int _lastLvl = -1;
+  int _lastLevel = -1;
 
-  void startLife() async {
-    await tts.setLanguage("hi-IN");
-    await tts.setPitch(1.0);
-    _lastLvl = await _battery.batteryLevel;
-
-    _battery.onBatteryStateChanged.listen((state) async {
-      int lvl = await _battery.batteryLevel;
-      if (state == BatteryState.charging) {
-        tts.speak("जय श्री राम विवेक कौशिक जी, मोबाइल चार्ज होना शुरू हो गया है। बालाजी महाराज की कृपा बनी रहे।");
-      }
-      if (lvl == 100 && state == BatteryState.charging) {
-        tts.speak("जय श्री राम विवेक जी, फोन की बैटरी फुल हो गई है, कृपया चार्जर हटा लें।");
-      }
-    });
-
-    Timer.periodic(Duration(seconds: 30), (t) async {
-      int current = await _battery.batteryLevel;
-      if (current != _lastLvl && current > 0) {
-        tts.speak("जय श्री राम विवेक जी, फोन में $current प्रतिशत बैटरी बची है।");
-        _lastLvl = current;
-      }
-    });
-
-    Timer.periodic(Duration(minutes: 5), (t) => announceDharmikData());
+  BalajiAssistant() {
+    _initTts();
   }
 
-  void announceDharmikData() async {
+  _initTts() async {
+    await flutterTts.setLanguage("hi-IN");
+    await flutterTts.setPitch(1.0);
+  }
+
+  // चार्जिंग और बैटरी अपडेट चेक करने वाला फंक्शन
+  void monitorBattery() {
+    _battery.onBatteryStateChanged.listen((BatteryState state) async {
+      int level = await _battery.batteryLevel;
+      
+      if (state == BatteryState.charging && _lastLevel != level) {
+        speakChargingStart();
+      }
+      
+      // हर 10% पर बोलना
+      if (level % 10 == 0 && _lastLevel != level) {
+        speakBatteryUpdate(level, state == BatteryState.charging);
+      }
+      _lastLevel = level;
+    });
+  }
+
+  void speakChargingStart() {
+    // यहाँ आप वोल्टेज सेंसर का डेटा API से ले सकते हैं, अभी मैं 220V मान रहा हूँ
+    String msg = "जय जय श्री राम विवेक कौशिक जी, बालाजी महाराज की दया से आपका फोन 220 वोल्टेज पर चार्ज होना शुरू हो गया। बालाजी महाराज की कृपा समस्त संसार पर बनी रहे।";
+    flutterTts.speak(msg);
+  }
+
+  void speakBatteryUpdate(int level, bool isCharging) {
+    if (isCharging) {
+      flutterTts.speak("विवेक जी, आपके फोन की बैटरी $level परसेंट हो गई है।");
+    } else {
+      flutterTts.speak("विवेक जी, आपके फोन की बैटरी $level परसेंट रह गई है, कृपया चार्ज करें।");
+    }
+  }
+
+  // समय और त्यौहार की जानकारी
+  void speakCurrentStatus() {
     DateTime now = DateTime.now();
-    String time = DateFormat('hh बजकर mm मिनट', 'hi-IN').format(now);
-    String date = DateFormat('d MMMM yyyy', 'hi-IN').format(now);
-    String day = DateFormat('EEEE', 'hi-IN').format(now);
-    int samvat = now.year + 57;
-
-    String warSpecial = "";
-    if (now.weekday == DateTime.tuesday) warSpecial = "आज मंगलवार है, हनुमान जी का वार है।";
-    if (now.weekday == DateTime.saturday) warSpecial = "आज शनिवार है, बालाजी महाराज का विशेष दिन है।";
-
-    String speech = "जय श्री राम विवेक कौशिक जी। अभी समय $time हुआ है। आज $day है, $date। विक्रम सम्वत $samvat चल रहा है। $warSpecial बालाजी की दया बनी रहे।";
-    await tts.speak(speech);
-  }
-
-  void playRamAlarm() {
-    tts.speak("राम राम राम श्री राम राम। जागिए विवेक जी, बालाजी का नाम लीजिए।");
+    String time = DateFormat('jm').format(now);
+    String date = DateFormat('dd MMMM yyyy').format(now);
+    String day = DateFormat('EEEE').format(now);
+    
+    // त्यौहार के लिए आपको अपनी लिस्ट बनानी होगी
+    String msg = "विवेक जी, अभी समय $time हुआ है। आज $day है और तारीख $date है। बालाजी का नाम जपते रहें।";
+    flutterTts.speak(msg);
   }
 }
