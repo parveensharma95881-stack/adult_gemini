@@ -22,40 +22,41 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    assistant.startMonitoring();
+    assistant.startMonitoring(); // असिस्टेंट चालू
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("श्री बालाजी महाराज सेवा")),
-      body: Container(
+      body: GridView.count(
+        crossAxisCount: 2,
         padding: EdgeInsets.all(10),
-        child: GridView.count(
-          crossAxisCount: 2,
-          children: [
-            _buildBtn(context, "दैनिक पंचांग", Icons.wb_sunny, "assets/html/panchang.html"),
-            _buildBtn(context, "2050 कैलेंडर", Icons.calendar_month, "assets/html/calendar.html"),
-            _buildBtn(context, "विशेष दर्शन", Icons.visibility, "https://www.salasarbalaji.org/"),
-            _buildBtn(context, "सुपरहिट भजन", Icons.music_note, "https://www.youtube.com/results?search_query=balaji+bhajan"),
-          ],
-        ),
+        children: [
+          _buildMenu(context, "दैनिक पंचांग", Icons.wb_sunny, "assets/html/panchang.html"),
+          _buildMenu(context, "2050 कैलेंडर", Icons.calendar_month, "assets/html/calendar.html"),
+          _buildMenu(context, "सुपरहिट भजन", Icons.music_note, "https://www.youtube.com"),
+          _buildMenu(context, "आरती संग्रह", Icons.menu_book, "assets/html/aarti.html"),
+        ],
       ),
     );
   }
 
-  Widget _buildBtn(BuildContext context, String title, IconData icon, String url) {
+  Widget _buildMenu(BuildContext context, String title, IconData icon, String path) {
     return Card(
-      elevation: 5,
+      elevation: 4,
       child: InkWell(
-        onTap: () => Navigator.push(context, MaterialPageRoute(
-          builder: (context) => WebPage(title: title, url: url),
-        )),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => WebScreen(title: title, path: path),
+          ));
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 50, color: Colors.orange),
-            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
       ),
@@ -63,9 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class WebPage extends StatelessWidget {
-  final String title, url;
-  WebPage({required this.title, required this.url});
+class WebScreen extends StatelessWidget {
+  final String title, path;
+  WebScreen({required this.title, required this.path});
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +74,9 @@ class WebPage extends StatelessWidget {
       appBar: AppBar(title: Text(title)),
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: url.startsWith("http") ? WebUri(url) : WebUri("asset:///$url")
+          url: path.startsWith("http") ? WebUri(path) : WebUri("asset:///$path")
         ),
-        initialSettings: InAppWebViewSettings(
-          javaScriptEnabled: true,
-          transparentBackground: true,
-        ),
+        initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
       ),
     );
   }
