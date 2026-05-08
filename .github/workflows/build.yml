@@ -1,47 +1,21 @@
 name: Build Balaji APK
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # लेटेस्ट एक्शन वर्जन (Node 20 सपोर्ट के साथ)
-      - uses: actions/checkout@v4 
-      
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.0'
           channel: 'stable'
-
-      # प्रोजेक्ट की पुरानी गंदगी साफ करने के लिए
-      - name: Clean Project
-        run: |
-          flutter clean
-          rm -rf pubspec.lock
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      # यहाँ हमने सही कमांड लिखी है (no-minify हटा दिया है)
+      - run: flutter pub get
       - name: Build APK
         run: flutter build apk --release --no-tree-shake-icons
-
-      # बनी हुई APK को डाउनलोड के लिए उपलब्ध कराना
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+        env:
+          FLUTTER_ROOT: ${{ env.FLUTTER_HOME }}
+      - uses: actions/upload-artifact@v3
         with:
           name: balaji-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
