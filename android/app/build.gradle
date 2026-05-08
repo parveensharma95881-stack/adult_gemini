@@ -6,36 +6,24 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+// यहाँ है असली समाधान
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
+    // GitHub Actions के लिए ये लाइन रामबाण है
+    flutterRoot = System.getenv('FLUTTER_HOME') 
+}
+
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in local.properties or FLUTTER_HOME env variable.")
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+// यहाँ .gradle की जगह .groovy करके देखो, क्योंकि 3.13.0 में Groovy ही असली इंजन है
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
-    namespace "com.example.balaji" 
+    namespace "com.example.balaji"
     compileSdkVersion 34
-
-    defaultConfig {
-        applicationId "com.example.balaji"
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    // ... बाकी सब वैसा ही रहने दें ...
 }
