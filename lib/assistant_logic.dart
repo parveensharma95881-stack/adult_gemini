@@ -1,61 +1,57 @@
+import 'package:battery_info/battery_info_plugin.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:battery_plus/battery_plus.dart';
+import 'dart:async';
 import 'package:intl/intl.dart';
 
 class BalajiAssistant {
   final FlutterTts flutterTts = FlutterTts();
-  final Battery _battery = Battery();
-  int _lastLevel = -1;
+  int? _lastLevel;
 
   BalajiAssistant() {
-    _initTts();
+    _init();
   }
 
-  _initTts() async {
+  void _init() async {
     await flutterTts.setLanguage("hi-IN");
     await flutterTts.setPitch(1.0);
   }
 
-  // चार्जिंग और बैटरी अपडेट चेक करने वाला फंक्शन
-  void monitorBattery() {
-    _battery.onBatteryStateChanged.listen((BatteryState state) async {
-      int level = await _battery.batteryLevel;
-      
-      if (state == BatteryState.charging && _lastLevel != level) {
-        speakChargingStart();
+  void startMonitoring() {
+    Timer.periodic(Duration(seconds: 15), (timer) async {
+      var info = await BatteryInfoPlugin().androidBatteryInfo;
+      if (info == null) return;
+
+      int level = info.batteryLevel ?? 0;
+      double voltage = (info.voltage ?? 0) / 1000.0;
+      bool isCharging = info.chargingStatus.toString().contains("charging");
+
+      // चार्जिंग शुरू होने पर स्वागत
+      if (isCharging && _lastLevel != level && _lastLevel == null) {
+        _speakCharging(voltage);
       }
-      
-      // हर 10% पर बोलना
-      if (level % 10 == 0 && _lastLevel != level) {
-        speakBatteryUpdate(level, state == BatteryState.charging);
+
+      // हर 10% पर अपडेट (बढ़ने और घटने दोनों पर)
+      if (_lastLevel != null && level != _lastLevel && level % 10 == 0) {
+        _speakLevelUpdate(level, isCharging);
       }
+
       _lastLevel = level;
     });
   }
 
-  void speakChargingStart() {
-    // यहाँ आप वोल्टेज सेंसर का डेटा API से ले सकते हैं, अभी मैं 220V मान रहा हूँ
-    String msg = "जय जय श्री राम विवेक कौशिक जी, बालाजी महाराज की दया से आपका फोन 220 वोल्टेज पर चार्ज होना शुरू हो गया। बालाजी महाराज की कृपा समस्त संसार पर बनी रहे।";
+  void _speakCharging(double v) {
+    String msg = "जय जय श्री राम विवेक कौशिक जी, बालाजी महाराज की दया से आपका फोन $v वोल्टेज पर चार्ज होना शुरू हो गया। बालाजी महाराज की कृपा समस्त संसार पर बनी रहे।";
     flutterTts.speak(msg);
   }
 
-  void speakBatteryUpdate(int level, bool isCharging) {
-    if (isCharging) {
-      flutterTts.speak("विवेक जी, आपके फोन की बैटरी $level परसेंट हो गई है।");
-    } else {
-      flutterTts.speak("विवेक जी, आपके फोन की बैटरी $level परसेंट रह गई है, कृपया चार्ज करें।");
-    }
-  }
-
-  // समय और त्यौहार की जानकारी
-  void speakCurrentStatus() {
+  void _speakLevelUpdate(int level, bool isCharging) {
     DateTime now = DateTime.now();
-    String time = DateFormat('jm').format(now);
-    String date = DateFormat('dd MMMM yyyy').format(now);
-    String day = DateFormat('EEEE').format(now);
+    String timeInfo = DateFormat('jm').format(now);
+    String dateInfo = DateFormat('EEEE, d MMMM').format(now);
     
-    // त्यौहार के लिए आपको अपनी लिस्ट बनानी होगी
-    String msg = "विवेक जी, अभी समय $time हुआ है। आज $day है और तारीख $date है। बालाजी का नाम जपते रहें।";
+    String msg = isCharging 
+      ? "विवेक जी, फोन की बैटरी $level परसेंट हो गई है। समय $timeInfo है।" 
+      : "विवेक जी, बैटरी $level परसेंट रह गई है, कृपया चार्ज करें। आज $dateInfo है।";
     flutterTts.speak(msg);
   }
 }
