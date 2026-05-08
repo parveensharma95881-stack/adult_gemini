@@ -6,14 +6,19 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+// यहाँ सुधार किया गया है ताकि बिल्ड फेल न हो
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
 }
 
+if (flutterRoot == null) {
+    // अगर फिर भी न मिले तो एक डिफ़ॉल्ट एरर न देकर सीधा पाथ चेक करेगा
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in local.properties or FLUTTER_ROOT env variable.")
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// पुराने वर्जन में .gradle ही सबसे अच्छा काम करता है
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -40,12 +45,9 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
-            
-            // R8 को पूरी तरह बंद रखा गया है ताकि कोई क्लास मिस न हो
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true 
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
