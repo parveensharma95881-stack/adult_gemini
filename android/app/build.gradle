@@ -1,10 +1,3 @@
-plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
-}
-
-// कोडिंग अब plugins के नीचे आएगी, ताकि एरर न आए
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -15,8 +8,13 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    flutterRoot = System.getenv('FLUTTER_HOME') 
+    flutterRoot = System.getenv('FLUTTER_HOME') ?: System.getenv('FLUTTER_ROOT')
 }
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+// .groovy वाला तरीका 3.13.0 में सबसे बेस्ट है
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
     namespace "com.example.balaji"
@@ -35,11 +33,11 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
+    // यहाँ kotlin_version अब मिल जाएगा
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
