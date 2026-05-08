@@ -6,7 +6,6 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-// GitHub Actions और Local दोनों के लिए रास्ता पक्का करना
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
@@ -14,22 +13,11 @@ if (flutterRoot == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// .groovy की जगह .gradle का इस्तेमाल करें क्योंकि 7.4.2 में यही स्टेबल था
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    // मेनिफेस्ट की गड़बड़ को यहाँ से शांत किया गया है
     namespace "com.example.balaji" 
     compileSdkVersion 34
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
-    }
 
     defaultConfig {
         applicationId "com.example.balaji"
@@ -44,8 +32,6 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
-            zipAlignEnabled true 
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
