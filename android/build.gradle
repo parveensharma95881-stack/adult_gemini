@@ -6,6 +6,7 @@ buildscript {
     }
 
     dependencies {
+        // आपका पसंदीदा वर्जन यहाँ है
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
