@@ -1,13 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
-        android:label="balaji"
+        android:label="बालाजी महाराज"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
+            
         <activity
             android:name=".MainActivity"
             android:exported="true"
