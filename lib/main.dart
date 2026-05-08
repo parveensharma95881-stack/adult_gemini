@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'assistant_logic.dart';
 
 void main() {
-  runApp(BalajiApp());
-}
-
-class BalajiApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.orange),
-      home: HomeScreen(),
-    );
-  }
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(primarySwatch: Colors.orange),
+    home: HomeScreen(),
+  ));
 }
 
 class HomeScreen extends StatefulWidget {
@@ -27,46 +22,62 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // ऐप शुरू होते ही बैटरी मॉनिटर चालू कर दें
-    assistant.monitorBattery();
+    assistant.startMonitoring();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("बालाजी महाराज ऐप")),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          _buildMenuCard("आरती डेली", Icons.auto_stories),
-          _buildMenuCard("सुपरहिट भजन", Icons.music_note),
-          _buildMenuCard("2050 कैलेंडर", Icons.calendar_month),
-          _buildMenuCard("IPTV प्लेयर", Icons.tv),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => assistant.speakCurrentStatus(),
-        child: Icon(Icons.mic),
-        backgroundColor: Colors.orange,
+      appBar: AppBar(title: Text("श्री बालाजी महाराज सेवा")),
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: GridView.count(
+          crossAxisCount: 2,
+          children: [
+            _buildBtn(context, "दैनिक पंचांग", Icons.wb_sunny, "assets/html/panchang.html"),
+            _buildBtn(context, "2050 कैलेंडर", Icons.calendar_month, "assets/html/calendar.html"),
+            _buildBtn(context, "विशेष दर्शन", Icons.visibility, "https://www.salasarbalaji.org/"),
+            _buildBtn(context, "सुपरहिट भजन", Icons.music_note, "https://www.youtube.com/results?search_query=balaji+bhajan"),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildMenuCard(String title, IconData icon) {
+  Widget _buildBtn(BuildContext context, String title, IconData icon, String url) {
     return Card(
-      margin: EdgeInsets.all(10),
+      elevation: 5,
       child: InkWell(
-        onTap: () {
-          // यहाँ उस पेज पर जाने की कोडिंग आएगी
-          print("$title खोला जा रहा है");
-        },
+        onTap: () => Navigator.push(context, MaterialPageRoute(
+          builder: (context) => WebPage(title: title, url: url),
+        )),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 50, color: Colors.orange),
-            SizedBox(height: 10),
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class WebPage extends StatelessWidget {
+  final String title, url;
+  WebPage({required this.title, required this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: InAppWebView(
+        initialUrlRequest: URLRequest(
+          url: url.startsWith("http") ? WebUri(url) : WebUri("asset:///$url")
+        ),
+        initialSettings: InAppWebViewSettings(
+          javaScriptEnabled: true,
+          transparentBackground: true,
         ),
       ),
     );
