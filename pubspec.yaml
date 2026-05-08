@@ -1,35 +1,13 @@
-name: balaji
-description: "Sevak Shri Mehandipur Balaji App"
-publish_to: 'none'
-version: 1.0.0+1
-
-environment:
-  sdk: '>=3.0.0 <4.0.0'
-
 dependencies:
   flutter:
     sdk: flutter
-  
-  # ये वो सामान हैं जो कोड में तो थे पर यहाँ गायब थे
-  flutter_tts: ^3.8.5          # बोलकर सुनाने के लिए
-  battery_plus: ^5.0.3
-  intl: ^0.19.0                # तारीख और समय (DateFormat) के लिए
-  cupertino_icons: ^1.0.8
-  vector_math: 2.1.4
-  flutter_inappwebview: ^6.0.0
-  async: 2.11.0
-  clock: 1.1.1
-  collection: 1.18.0
-  path: 1.9.0
-  meta: 1.12.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  test_api: 0.7.0
-  flutter_lints: ^3.0.0
+  battery_plus: ^6.0.0
+  battery_info: ^1.1.0
+  flutter_tts: ^4.1.0
+  flutter_inappwebview: ^6.0.0  # HTML फाइलों को चलाने के लिए
+  intl: ^0.19.0
 
 flutter:
-  uses-material-design: true
   assets:
+    - assets/html/
     - assets/database/panchang.db
