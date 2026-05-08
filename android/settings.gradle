@@ -9,6 +9,8 @@ if (localPropertiesFile.exists()) {
 }
 
 def flutterSdkPath = localProperties.getProperty('flutter.sdk')
-assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+if (flutterSdkPath == null) {
+    flutterSdkPath = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
+}
 
 apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
