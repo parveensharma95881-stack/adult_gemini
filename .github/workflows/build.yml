@@ -5,17 +5,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      # v3 से v4 किया गया
+      - uses: actions/checkout@v4 
+      
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.0'
           channel: 'stable'
+          
       - run: flutter pub get
+      
       - name: Build APK
         run: flutter build apk --release --no-tree-shake-icons
         env:
           FLUTTER_ROOT: ${{ env.FLUTTER_HOME }}
-      - uses: actions/upload-artifact@v3
+          
+      # यहाँ सबसे बड़ा बदलाव: v3 को v4 किया गया
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: balaji-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          compression-level: 9 # बेहतर साइज़ के लिए
+          overwrite: true      # पुरानी फाइल को हटाकर नई डालने के लिए
