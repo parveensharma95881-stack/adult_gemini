@@ -1,10 +1,9 @@
 name: balaji
-description: "A new Flutter project for Balaji Maharaj."
+description: "Balaji Maharaj App"
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  # यह SDK रेंज पुराने Flutter 3.10.x और 3.13.x के लिए बेस्ट है
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
@@ -14,18 +13,11 @@ dependencies:
   flutter_tts: ^3.8.3
   flutter_inappwebview: ^5.8.0
   intl: ^0.18.1
-  sqflite: ^2.3.0    # यह गायब था
-  path: ^1.8.3       # यह भी गायब था
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
+  sqflite: ^2.3.0
+  path: ^1.8.3
 
 flutter:
   uses-material-design: true
-
-  # आपकी HTML और DB फाइलों को रजिस्टर करना मत भूलना
   assets:
     - assets/html/
     - assets/database/panchang.db
