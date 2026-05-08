@@ -6,6 +6,7 @@ buildscript {
     }
 
     dependencies {
+        // यह वर्जन स्टेबल बिल्ड के लिए सबसे जरूरी है
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
