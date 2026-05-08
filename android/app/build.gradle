@@ -13,14 +13,23 @@ if (flutterRoot == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// यह लाइन सबसे ज़रूरी है
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
+    // 34 लेटेस्ट है और प्ले स्टोर के लिए सही है
     compileSdkVersion 34
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
     defaultConfig {
-        applicationId "com.example.balaji" // अपना असली पैकेज नाम चेक कर लेना
+        applicationId "com.example.balaji" // यहाँ अपना असली पैकेज नाम देख लेना
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
@@ -29,7 +38,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug // अगर की-स्टोर नहीं है तो इसे रहने दें
+            signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
         }
