@@ -16,7 +16,6 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
-    // 34 लेटेस्ट है और प्ले स्टोर के लिए सही है
     compileSdkVersion 34
 
     compileOptions {
@@ -29,7 +28,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.balaji" // यहाँ अपना असली पैकेज नाम देख लेना
+        applicationId "com.example.balaji" 
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
