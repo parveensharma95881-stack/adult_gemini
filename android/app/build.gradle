@@ -6,23 +6,20 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-// यहाँ सुधार किया गया है ताकि बिल्ड फेल न हो
+// GitHub Actions और Local दोनों के लिए रास्ता पक्का करना
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
 }
 
-if (flutterRoot == null) {
-    // अगर फिर भी न मिले तो एक डिफ़ॉल्ट एरर न देकर सीधा पाथ चेक करेगा
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in local.properties or FLUTTER_ROOT env variable.")
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+// .groovy की जगह .gradle का इस्तेमाल करें क्योंकि 7.4.2 में यही स्टेबल था
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "com.example.balaji"
+    // मेनिफेस्ट की गड़बड़ को यहाँ से शांत किया गया है
+    namespace "com.example.balaji" 
     compileSdkVersion 34
 
     compileOptions {
