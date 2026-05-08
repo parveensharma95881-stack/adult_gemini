@@ -11,24 +11,12 @@ if (flutterRoot == null) {
     flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
 }
 
+// यह पुरानी लाइन हटाकर नई वाली लिखें
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
     compileSdkVersion 34
-    
-    defaultConfig {
-        applicationId "com.example.balaji"
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
+    // ... बाकी कोड पहले जैसा रहने दें ...
 }
