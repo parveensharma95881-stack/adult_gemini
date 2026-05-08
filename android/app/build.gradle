@@ -8,11 +8,12 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found.")
+    flutterRoot = System.getenv('FLUTTER_ROOT') ?: System.getenv('FLUTTER_HOME')
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+// पुराने वर्जन में .gradle ही सबसे अच्छा काम करता है
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -40,7 +41,7 @@ android {
         release {
             signingConfig signingConfigs.debug
             
-            // R8 को यहाँ हमने पूरी तरह सुला दिया है
+            // R8 को पूरी तरह बंद रखा गया है ताकि कोई क्लास मिस न हो
             minifyEnabled false
             shrinkResources false
             zipAlignEnabled true 
