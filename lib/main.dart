@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    assistant.startMonitoring(); // असिस्टेंट चालू
+    assistant.startMonitoring(); 
   }
 
   @override
@@ -74,9 +74,12 @@ class WebScreen extends StatelessWidget {
       appBar: AppBar(title: Text(title)),
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: path.startsWith("http") ? WebUri(path) : WebUri("asset:///$path")
+          // यहाँ सुधार किया गया है (Uri.parse इस्तेमाल करें)
+          url: path.startsWith("http") ? Uri.parse(path) : Uri.parse("asset:///$path")
         ),
-        initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
+        initialOptions: InAppWebViewGroupOptions(
+          crossPlatform: InAppWebViewOptions(javaScriptEnabled: true),
+        ),
       ),
     );
   }
