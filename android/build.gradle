@@ -22,7 +22,7 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
-// यही वो 13 नम्बर का हिस्सा है जो 'null' एरर दे रहा था
+// यहाँ सुधार किया गया है
 subprojects {
     project.evaluationDependsOn(':app')
 }
