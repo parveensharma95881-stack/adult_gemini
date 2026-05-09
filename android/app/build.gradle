@@ -16,9 +16,10 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
-    namespace "com.example.balaji"
     compileSdkVersion 34
 
+    // यहाँ से namespace हटा दिया है, यही 'Unsupported' का कारण था
+    
     defaultConfig {
         applicationId "com.example.balaji"
         minSdkVersion 21
