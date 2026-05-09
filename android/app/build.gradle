@@ -13,11 +13,10 @@ if (flutterRoot == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// यहाँ .groovy ही इस्तेमाल करें, यही 3.13.0 का इंजन है
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.groovy"
 
 android {
-    namespace "com.example.balaji"
+    namespace "com.example.balaji" 
     compileSdkVersion 34
 
     defaultConfig {
