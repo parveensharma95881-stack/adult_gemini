@@ -1,11 +1,23 @@
 pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
-        file("local.properties").withInputStream { properties.load(it) }
-        def flutterSdkPath = properties.getProperty("flutter.sdk")
-        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-        return flutterSdkPath
+        def propertiesFile = file("local.properties")
+        
+        // अगर फाइल है (लोकल कंप्यूटर पर) तो वहां से उठाओ
+        if (propertiesFile.exists()) {
+            propertiesFile.withInputStream { properties.load(it) }
+            return properties.getProperty("flutter.sdk")
+        } 
+        // अगर फाइल नहीं है (GitHub Actions पर) तो यहाँ से उठाओ
+        else {
+            return System.getenv('FLUTTER_HOME') ?: System.getenv('FLUTTER_ROOT')
+        }
     }()
+
+    // अगर ऊपर से रास्ता मिल गया तो ठीक, वरना ये डिफ़ॉल्ट रास्ता (GitHub वाला)
+    if (flutterSdkPath == null) {
+        flutterSdkPath = '/opt/hostedtoolcache/flutter/stable-3.13.0-x64/flutter'
+    }
 
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
 
