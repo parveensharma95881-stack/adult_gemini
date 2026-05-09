@@ -13,5 +13,4 @@ if (flutterSdkPath == null) {
     flutterSdkPath = System.getenv('FLUTTER_HOME') ?: System.getenv('FLUTTER_ROOT')
 }
 
-// यह जादुई लाइन प्लगइन्स को प्रोजेक्ट में जोड़ देगी
 apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
