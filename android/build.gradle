@@ -10,7 +10,7 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 afterEvaluate { project ->
-        if (project.hasProperty('android')) {
+        if (project.hasProperty('android')) 
             project.evaluationDependsOn(':app')
 }
 
