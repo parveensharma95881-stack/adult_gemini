@@ -5,15 +5,30 @@ plugins {
 }
 
 android {
-    namespace "com.example.balaji" // पक्का कर लेना मेनिफेस्ट में भी यही हो
-    compileSdkVersion 34
+    // अपनी पीडीएफ के हिसाब से नाम पक्का कर लेना
+    namespace "com.example.balaji" 
+    compileSdk 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 
     defaultConfig {
+        // यहाँ भी वही नाम होना चाहिए
         applicationId "com.example.balaji"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk 21
+        targetSdk 34
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
 
     buildTypes {
@@ -26,5 +41,5 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 }
