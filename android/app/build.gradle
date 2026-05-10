@@ -1,22 +1,43 @@
 plugins {
     id "com.android.application"
-    id "org.jetbrains.kotlin.android" // इसे ऐसे बदल दे
+    id "org.jetbrains.kotlin.android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
 android {
-    namespace "com.example.balaji" // तेरा नया नाम
+    namespace "com.example.balaji" 
     compileSdk 34
-    
-    // ये कोडिंग कतई नहीं भूलनी
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
+
     kotlinOptions {
         jvmTarget = '17'
     }
-    
-    // बाकी कोडिंग जो तूने पहले डाली थी...
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.example.balaji"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 }
