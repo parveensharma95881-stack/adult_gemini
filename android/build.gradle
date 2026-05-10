@@ -6,7 +6,6 @@ buildscript {
     }
 
     dependencies {
-        // यह नया वर्ज़न है जो 8.2 के साथ चलेगा
         classpath 'com.android.tools.build:gradle:8.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -16,7 +15,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        // Flutter के सामान के लिए ये दुकान ज़रूरी है
         maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
 }
