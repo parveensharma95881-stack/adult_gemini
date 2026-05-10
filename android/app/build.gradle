@@ -5,7 +5,6 @@ plugins {
 }
 
 android {
-    // अपनी पीडीएफ के हिसाब से नाम पक्का कर लेना
     namespace "com.example.balaji" 
     compileSdk 34
 
@@ -23,7 +22,6 @@ android {
     }
 
     defaultConfig {
-        // यहाँ भी वही नाम होना चाहिए
         applicationId "com.example.balaji"
         minSdk 21
         targetSdk 34
