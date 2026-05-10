@@ -1,12 +1,15 @@
 pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
-        file("local.properties").withInputStream { properties.load(it) }
-        def flutterSdkPath = properties.getProperty("flutter.sdk")
-        if (flutterSdkPath == null) {
-            flutterSdkPath = '/opt/hostedtoolcache/flutter/stable-3.13.0-x64/flutter'
+        def file = new File(settingsDir, 'local.properties')
+        if (file.exists()) {
+            file.withReader('UTF-8') { reader -> properties.load(reader) }
         }
-        return flutterSdkPath
+        def sdkPath = properties.getProperty('flutter.sdk') ?: System.getenv('FLUTTER_ROOT')
+        if (sdkPath == null) {
+            throw new GradleException("Flutter SDK not found. Define flutter.sdk in local.properties or FLUTTER_ROOT env variable.")
+        }
+        return sdkPath
     }()
 
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
@@ -20,8 +23,22 @@ pluginManagement {
 
 plugins {
     id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
-    id "com.android.application" version "7.3.0" apply false
-    id "org.jetbrains.kotlin.android" version "1.8.22" apply false
+    id "com.android.application" version "8.2.1" apply false
+    id "org.jetbrains.kotlin.android" version "1.9.22" apply false
 }
 
 include ":app"
+
+// --- ये लाइनें प्लगइन्स को ढूंढने के लिए कतई ज़रूरी हैं ---
+def flutterProjectRoot = rootProject.projectDir.parentFile
+def plugins = new Properties()
+def pluginsFile = new File(flutterProjectRoot, '.flutter-plugins')
+if (pluginsFile.exists()) {
+    pluginsFile.withReader('UTF-8') { reader -> plugins.load(reader) }
+}
+
+plugins.each { name, path ->
+    def pluginDirectory = String.valueOf(path)
+    include ":$name"
+    project(":$name").projectDir = new File(pluginDirectory, 'android')
+}
