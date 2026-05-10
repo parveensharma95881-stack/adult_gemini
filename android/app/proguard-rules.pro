@@ -8,3 +8,6 @@
 -dontoptimize
 -dontwarn **
 -keep class ** { *; }
+-keep class com.pichillilorenzo.flutter_inappwebview.** { *; }
+-keep class com.tekartik.sqflite.** { *; }
+-dontwarn io.flutter.embedding.**
