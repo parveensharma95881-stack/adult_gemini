@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace "com.example.balaji" 
+    namespace "com.example.balaji" // पक्का कर लेना मेनिफेस्ट में भी यही हो
     compileSdkVersion 34
 
     defaultConfig {
